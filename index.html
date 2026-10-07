@@ -1,0 +1,178 @@
+<!doctype html><html lang='fr'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#17365d'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='default'><meta name='apple-mobile-web-app-title' content='POMPES JP'><link rel='manifest' href='manifest.webmanifest'><title>POMPES JP – Inspection Flygt</title><style>
+:root{--b:#17365d;--bg:#f4f7fa;--bd:#cbd5e1;--ok:#0f766e}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:#182230}.wrap{max-width:820px;margin:auto;padding:14px}.head{background:var(--b);color:#fff;padding:18px;border-radius:14px;margin-bottom:12px}.head h1{margin:0;font-size:22px}.head p{margin:5px 0 0;opacity:.85}.card{background:#fff;border:1px solid #dde5ee;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 1px 3px #00000010}.card h2{font-size:16px;color:var(--b);margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}label{font-size:12px;font-weight:650;display:block;margin-bottom:4px}input,textarea,select{width:100%;font:inherit;font-size:16px;padding:10px;border:1px solid var(--bd);border-radius:9px;background:#fff}textarea{min-height:72px}.checks{display:flex;flex-wrap:wrap;gap:12px}.checks label{font-size:14px;font-weight:500;display:flex;gap:6px;align-items:center}.checks input{width:20px;height:20px}.photo{border:1px dashed #94a3b8;border-radius:12px;padding:10px;margin-top:10px}.photo input{border:0;padding:8px 0}.preview{max-width:100%;max-height:240px;border-radius:10px;display:none;margin-top:8px}.actions{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(8px);padding:10px;border-radius:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;border:1px solid #dbe3eb}.btn{border:0;border-radius:10px;padding:12px;font-weight:700;font-size:14px;background:var(--b);color:white}.btn.alt{background:#475569}.btn.ok{background:var(--ok)}.note{font-size:12px;color:#64748b;margin-top:7px}.status{font-size:12px;color:var(--ok);font-weight:700;margin:6px 0}.full{grid-column:1/-1}@media(max-width:620px){.grid,.g3{grid-template-columns:1fr}.actions{grid-template-columns:1fr 1fr}.actions .wide{grid-column:1/-1}}@media print{body{background:white}.actions,.note,.status{display:none}.card{box-shadow:none;break-inside:avoid}.photo input{display:none}.wrap{max-width:none}.head{border-radius:0}}
+</style></head><body><div class='wrap'>
+<div class='head'><h1>POMPES JP</h1><p>Inspection de pompe Flygt</p></div>
+<div id='status' class='status'>Formulaire prêt.</div>
+<section class='card'><h2>Inspections enregistrées sur cet appareil</h2>
+<div id='listeInspections' class='note'>Aucune inspection enregistrée.</div>
+</section>
+<form id='f'>
+<section class='card'><h2>1. Identification</h2><div class='grid'>
+<div><label>Client</label><input name='client'></div><div><label>Date</label><input name='date' type='date'></div>
+<div><label>Station de pompage</label><input name='station' placeholder='Nom de la station'></div>
+<div><label>Pompe</label><select name='pompe'><option value=''>Choisir...</option><option>Pompe 1</option><option>Pompe 2</option><option>Pompe 3</option><option>Pompe 4</option></select></div>
+<div><label>Technicien</label><input name='tech'></div><div><label>Modèle Flygt</label><input name='modele'></div>
+<div><label>No série</label><input name='serie'></div>
+<div><label>Puissance</label><input name='puissance' placeholder='HP / kW'></div><div><label>Fréquence</label><input name='hz' inputmode='decimal' placeholder='Hz'></div></div>
+<div class='photo'><label>📷 Photo 1 — Plaque signalétique</label><input type='file' accept='image/*' capture='environment' data-photo='plaque'><img class='preview' id='p_plaque'></div></section>
+<section class='card'><h2>2. Données nominales et mesures électriques – 3 phases</h2><div class='grid'><div><label>Tension nominale (V)</label><input name='vnom' inputmode='decimal'></div><div><label>Courant nominal (A)</label><input name='anom' inputmode='decimal'></div><div><label>RPM</label><input name='rpm' inputmode='numeric'></div><div><label>Autres</label><input name='autres'></div></div><h3>Tension phase-phase</h3><div class='g3'><div><label>L1-L2 (V)</label><input name='v12' inputmode='decimal'></div><div><label>L2-L3 (V)</label><input name='v23' inputmode='decimal'></div><div><label>L3-L1 (V)</label><input name='v31' inputmode='decimal'></div></div><h3>Courant en marche</h3><div class='g3'><div><label>L1 (A)</label><input name='a1' inputmode='decimal'></div><div><label>L2 (A)</label><input name='a2' inputmode='decimal'></div><div><label>L3 (A)</label><input name='a3' inputmode='decimal'></div></div><h3>Résistance des enroulements</h3><div class='g3'><div><label>L1-L2 (Ω)</label><input name='r12' inputmode='decimal'></div><div><label>L2-L3 (Ω)</label><input name='r23' inputmode='decimal'></div><div><label>L3-L1 (Ω)</label><input name='r31' inputmode='decimal'></div></div><h3>Isolement phase-terre</h3><div class='g3'><div><label>L1-T (MΩ)</label><input name='m1' inputmode='decimal'></div><div><label>L2-T (MΩ)</label><input name='m2' inputmode='decimal'></div><div><label>L3-T (MΩ)</label><input name='m3' inputmode='decimal'></div></div><div class='checks' style='margin-top:12px'><label><input type='checkbox' name='terre'> Terre conforme</label><label><input type='checkbox' name='rotation'> Rotation conforme</label><label><input type='checkbox' name='deseq'> Déséquilibre observé</label></div></section>
+<div id="inspection">
+<section class="card"><h2>3. Câble</h2><div class="checks"><label><input type="radio" name="cable_etat" value="OK"> OK</label><label><input type="radio" name="cable_etat" value="Usé"> Usé</label><label><input type="radio" name="cable_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="cable_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="cable_note"></textarea><div class="photo"><label>📷 Photo 2 — Câble</label><input type="file" accept="image/*" capture="environment" data-photo="cable"><img class="preview" id="p_cable"></div></section>
+<section class="card"><h2>4. Volute</h2><div class="checks"><label><input type="radio" name="volute_etat" value="OK"> OK</label><label><input type="radio" name="volute_etat" value="Usé"> Usé</label><label><input type="radio" name="volute_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="volute_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="volute_note"></textarea><div class="photo"><label>📷 Photo 3 — Volute</label><input type="file" accept="image/*" capture="environment" data-photo="volute"><img class="preview" id="p_volute"></div></section>
+<section class="card"><h2>5. Roue / impulseur</h2><div class="checks"><label><input type="radio" name="roue_etat" value="OK"> OK</label><label><input type="radio" name="roue_etat" value="Usé"> Usé</label><label><input type="radio" name="roue_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="roue_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="roue_note"></textarea><div class="photo"><label>📷 Photo 4 — Roue / impulseur</label><input type="file" accept="image/*" capture="environment" data-photo="roue"><img class="preview" id="p_roue"></div></section>
+<section class="card"><h2>6. Bague d'usure</h2><div class="checks"><label><input type="radio" name="wear_etat" value="OK"> OK</label><label><input type="radio" name="wear_etat" value="Usé"> Usé</label><label><input type="radio" name="wear_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="wear_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="wear_note"></textarea><div class="photo"><label>📷 Photo 5 — Bague d'usure</label><input type="file" accept="image/*" capture="environment" data-photo="wear"><img class="preview" id="p_wear"></div></section>
+<section class="card"><h2>7. Poignée / levage</h2><div class="checks"><label><input type="radio" name="poignee_etat" value="OK"> OK</label><label><input type="radio" name="poignee_etat" value="Usé"> Usé</label><label><input type="radio" name="poignee_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="poignee_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="poignee_note"></textarea><div class="photo"><label>📷 Photo 6 — Poignée / levage</label><input type="file" accept="image/*" capture="environment" data-photo="poignee"><img class="preview" id="p_poignee"></div></section>
+<section class="card"><h2>8. Roulements, garnitures et étanchéité</h2><div class="checks"><label><input type="radio" name="interne_etat" value="OK"> OK</label><label><input type="radio" name="interne_etat" value="Usé"> Usé</label><label><input type="radio" name="interne_etat" value="Endommagé"> Endommagé</label><label><input type="radio" name="interne_etat" value="À remplacer"> À remplacer</label></div><label style="margin-top:10px">Remarques</label><textarea name="interne_note"></textarea></section>
+</div>
+<section class='card'><h2>9. Essai final</h2><div class='checks'><label><input type='checkbox' name='vibok'> Vibrations normales</label><label><input type='checkbox' name='bruitok'> Bruit normal</label><label><input type='checkbox' name='nofuite'> Aucune fuite</label><label><input type='checkbox' name='fonctionok'> Fonctionnement conforme</label></div><label style='margin-top:10px'>Remarques d'essai</label><textarea name='essai'></textarea></section>
+<section class='card'><h2>10. Conclusion</h2><div class='checks'><label><input type='radio' name='etat' value='Conforme'> Conforme</label><label><input type='radio' name='etat' value='Réparation recommandée'> Réparation recommandée</label><label><input type='radio' name='etat' value='Remplacement recommandé'> Remplacement recommandé</label></div><label style='margin-top:10px'>Travaux recommandés</label><textarea name='travaux'></textarea><label>Pièces requises</label><textarea name='pieces'></textarea><div class='grid'><div><label>Nom du technicien</label><input name='signtech'></div><div><label>Client / représentant</label><input name='clientrep'></div></div></section>
+</form>
+<p class='note'>Sauvegarde automatique sur cet appareil. Chaque station et chaque pompe peuvent avoir leur propre inspection. Les données et les 6 photos sont conservées sur ce téléphone. Utilisez « Partager / exporter » pour envoyer une copie complète par Messages, courriel ou AirDrop. Utilisez « Imprimer / PDF » pour envoyer un rapport lisible au client.</p>
+<div class='actions'>
+<button class='btn ok' type='button' onclick='saveCurrent()'>Enregistrer</button>
+<button class='btn alt' type='button' onclick='shareInspection()'>Partager / exporter</button>
+<button class='btn alt' type='button' onclick='document.getElementById("importFile").click()'>Importer</button>
+<button class='btn alt' type='button' onclick='window.print()'>Imprimer / PDF</button>
+<button class='btn wide' type='button' onclick='newInspection()'>Nouvelle inspection</button>
+<input id='importFile' type='file' accept='.json,application/json' style='display:none'>
+</div></div>
+<script>
+const form=document.getElementById('f'), status=document.getElementById('status');
+const photoKeys=['plaque','cable','volute','roue','wear','poignee'];
+let db, currentId=null, saveTimer=null;
+
+function uid(){return 'insp_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)}
+function allInspections(){try{return JSON.parse(localStorage.getItem('pompesjp_inspections')||'{}')}catch{return {}}}
+function putInspections(o){localStorage.setItem('pompesjp_inspections',JSON.stringify(o))}
+function formDataObj(){
+  let o={};
+  new FormData(form).forEach((v,k)=>{if(!(v instanceof File))o[k]=v});
+  form.querySelectorAll('input[type=checkbox]').forEach(x=>o[x.name]=x.checked);
+  return o
+}
+function labelFor(o){return [o.station||'Station sans nom',o.pompe||'Pompe non choisie',o.modele||''].filter(Boolean).join(' — ')}
+function saveCurrent(silent=false){
+  if(!currentId) currentId=uid();
+  let all=allInspections(), data=formDataObj();
+  all[currentId]={id:currentId,data,updated:new Date().toISOString()};
+  putInspections(all);
+  localStorage.setItem('pompesjp_current',currentId);
+  renderList();
+  if(!silent) status.textContent='✓ Inspection enregistrée : '+labelFor(data);
+}
+function autosave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveCurrent(true),350)}
+function loadInspection(id){
+  let all=allInspections(), rec=all[id]; if(!rec)return;
+  currentId=id; form.reset();
+  let o=rec.data||{};
+  Object.entries(o).forEach(([k,v])=>{
+    let els=form.elements[k]; if(!els)return;
+    if(els.length&&!els.tagName){[...els].forEach(e=>e.checked=e.value===v)}
+    else if(els.type==='checkbox') els.checked=!!v;
+    else els.value=v??'';
+  });
+  localStorage.setItem('pompesjp_current',id);
+  document.querySelectorAll('.preview').forEach(i=>{i.src='';i.style.display='none'});
+  photoKeys.forEach(loadPhoto);
+  status.textContent='Inspection ouverte : '+labelFor(o);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function deleteInspection(id){
+  if(!confirm("Supprimer cette inspection de cet appareil?"))return;
+  let all=allInspections(); delete all[id]; putInspections(all);
+  if(db){let tx=db.transaction('photos','readwrite'),store=tx.objectStore('photos');photoKeys.forEach(k=>store.delete(id+'_'+k))}
+  if(currentId===id){currentId=null;form.reset();localStorage.removeItem('pompesjp_current');document.querySelectorAll('.preview').forEach(i=>{i.src='';i.style.display='none'})}
+  renderList(); status.textContent='Inspection supprimée.';
+}
+function renderList(){
+  let all=allInspections(), el=document.getElementById('listeInspections');
+  let rows=Object.values(all).sort((a,b)=>b.updated.localeCompare(a.updated));
+  if(!rows.length){el.innerHTML='Aucune inspection enregistrée.';return}
+  el.innerHTML=rows.map(r=>{
+    let d=r.data||{}, dt=new Date(r.updated).toLocaleString('fr-CA');
+    return `<div style="padding:10px 0;border-bottom:1px solid #e2e8f0">
+      <b>${esc(d.station||'Station sans nom')} — ${esc(d.pompe||'Pompe non choisie')}</b><br>
+      ${esc(d.modele||'Modèle non indiqué')} ${d.serie?'• N° '+esc(d.serie):''}<br>
+      <span style="font-size:11px;color:#64748b">Dernière sauvegarde : ${dt}</span><br>
+      <button type="button" class="btn" style="margin-top:7px;padding:8px" onclick="loadInspection('${r.id}')">Ouvrir</button>
+      <button type="button" class="btn alt" style="margin-top:7px;padding:8px" onclick="deleteInspection('${r.id}')">Supprimer</button>
+    </div>`
+  }).join('')
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+const req=indexedDB.open('PompesJPInspectionMulti',1);
+req.onupgradeneeded=e=>e.target.result.createObjectStore('photos');
+req.onsuccess=e=>{
+  db=e.target.result;
+  renderList();
+  let id=localStorage.getItem('pompesjp_current'), all=allInspections();
+  if(id&&all[id]) loadInspection(id); else newInspection(false);
+};
+
+function loadPhoto(k){
+  if(!db||!currentId)return;
+  let r=db.transaction('photos').objectStore('photos').get(currentId+'_'+k);
+  r.onsuccess=()=>{if(r.result){let img=document.getElementById('p_'+k);img.src=URL.createObjectURL(r.result);img.style.display='block'}}
+}
+document.addEventListener('change',e=>{
+  if(e.target.matches('[data-photo]')&&e.target.files[0]&&db){
+    if(!currentId)currentId=uid();
+    let k=e.target.dataset.photo,b=e.target.files[0];
+    db.transaction('photos','readwrite').objectStore('photos').put(b,currentId+'_'+k);
+    let img=document.getElementById('p_'+k);img.src=URL.createObjectURL(b);img.style.display='block';
+    saveCurrent(true);status.textContent='✓ Photo enregistrée dans cette inspection.';
+  } else if(e.target.form) autosave();
+});
+document.addEventListener('input',e=>{if(e.target.form)autosave()});
+
+function newInspection(ask=true){
+  if(ask && currentId && !confirm('Commencer une nouvelle inspection? La fiche actuelle restera enregistrée.'))return;
+  currentId=uid(); form.reset();
+  let date=form.elements['date']; if(date) date.value=new Date().toISOString().slice(0,10);
+  document.querySelectorAll('.preview').forEach(i=>{i.src='';i.style.display='none'});
+  localStorage.setItem('pompesjp_current',currentId);
+  saveCurrent(true); status.textContent='Nouvelle inspection prête.';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function photoToDataURL(blob){
+  return await new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob)})
+}
+async function collectExport(){
+  saveCurrent(true);
+  let all=allInspections(), rec=all[currentId], photos={};
+  if(db){
+    for(const k of photoKeys){
+      let blob=await new Promise(res=>{let q=db.transaction('photos').objectStore('photos').get(currentId+'_'+k);q.onsuccess=()=>res(q.result||null);q.onerror=()=>res(null)});
+      if(blob)photos[k]=await photoToDataURL(blob);
+    }
+  }
+  return {version:1,app:'POMPES JP - Inspection Flygt',inspection:rec,photos};
+}
+async function shareInspection(){
+  let pack=await collectExport(), d=pack.inspection.data||{};
+  let safe=((d.station||'Station')+'_'+(d.pompe||'Pompe')).replace(/[^a-zA-Z0-9À-ÿ_-]+/g,'_');
+  let file=new File([JSON.stringify(pack)],`Inspection_${safe}.json`,{type:'application/json'});
+  if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+    try{await navigator.share({title:'Inspection POMPES JP',text:labelFor(d),files:[file]});return}catch(e){}
+  }
+  let a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=file.name;a.click();URL.revokeObjectURL(a.href);
+  status.textContent="✓ Fichier d'inspection exporté. Vous pouvez maintenant l'envoyer au bureau.";
+}
+document.getElementById('importFile').addEventListener('change',async e=>{
+  let f=e.target.files[0];if(!f)return;
+  try{
+    let pack=JSON.parse(await f.text()), rec=pack.inspection;if(!rec||!rec.data)throw 0;
+    currentId=uid();let all=allInspections();all[currentId]={id:currentId,data:rec.data,updated:new Date().toISOString()};putInspections(all);
+    if(db&&pack.photos){
+      let store=db.transaction('photos','readwrite').objectStore('photos');
+      for(const [k,dataurl] of Object.entries(pack.photos)){
+        let blob=await (await fetch(dataurl)).blob();store.put(blob,currentId+'_'+k);
+      }
+    }
+    loadInspection(currentId);renderList();status.textContent='✓ Inspection importée sur cet appareil.';
+  }catch{alert("Ce fichier d'inspection n'est pas valide.")}
+  e.target.value='';
+});
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script></body></html>

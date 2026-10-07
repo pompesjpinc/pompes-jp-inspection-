@@ -1,0 +1,11 @@
+POMPES JP – INSTALLATION IPHONE
+
+1. Mettre les 3 fichiers (index.html, manifest.webmanifest, sw.js) sur un hébergement HTTPS statique.
+2. Ouvrir l'adresse dans Safari sur l'iPhone.
+3. Appuyer sur Partager > Sur l'écran d'accueil > Ajouter.
+4. Ouvrir ensuite l'icône POMPES JP. L'application peut fonctionner hors ligne.
+5. Les inspections et photos restent sur CE téléphone.
+6. Pour envoyer au bureau: ouvrir l'inspection > Partager / exporter > Messages ou Mail.
+7. Pour le client: Imprimer / PDF > bouton Partager d'iOS > Messages/Mail.
+
+IMPORTANT: ne pas supprimer les données du site Safari/l'application sans avoir exporté les inspections importantes.

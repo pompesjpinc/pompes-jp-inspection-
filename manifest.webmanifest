@@ -1,0 +1,11 @@
+{
+  "name": "POMPES JP – Inspections Flygt",
+  "short_name": "POMPES JP",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fa",
+  "theme_color": "#17365d",
+  "lang": "fr-CA",
+  "description": "Inspections locales de pompes Flygt"
+}
